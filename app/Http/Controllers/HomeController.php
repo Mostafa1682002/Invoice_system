@@ -25,6 +25,9 @@ class HomeController extends Controller
     public function index()
     {
         $number_invoices = Invoice::count();
+        if ($number_invoices == 0) {
+            $number_invoices = 1;
+        }
         $sum_total_allinvoice = number_format(Invoice::sum('total'), 2);
         $pre_allinvoice = ($number_invoices / $number_invoices) * 100;
 
@@ -75,7 +78,7 @@ class HomeController extends Controller
                 [
                     'backgroundColor' => ['#f93a5a', '#efa65f', '#029666'],
                     'hoverBackgroundColor' => ['#f7778c', '#f76a2d', '#48d6a8'],
-                    'data' => [69, 10, 30]
+                    'data' => [$pre_unpaidinvoice, $pre_sempaidinvoice, $pre_paidinvoice]
                 ]
             ])
             ->options([]);
