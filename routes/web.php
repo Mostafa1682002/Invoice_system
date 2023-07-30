@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('invoices_status/{id}', 'InvoiceController@update_status')->name('invoices.update_status');
     Route::get('print_invoice/{id}', 'InvoiceController@printInvoice')->name('invoices.print');
     Route::get('invoice_export', 'InvoiceController@export')->name('invoice_export');
+    Route::get('markAllRead', 'InvoiceController@markAllRead')->name('markAllRead');
     Route::get('section/{id}', 'InvoiceController@getProducts');
 
 

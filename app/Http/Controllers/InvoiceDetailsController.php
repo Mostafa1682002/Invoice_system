@@ -42,9 +42,10 @@ class InvoiceDetailsController extends Controller
     public function show($id)
     {
         //Mark Read Notification
-        $id_notification = DB::table('notifications')->where('data->invoice_id', $id)->pluck('id');
-        DB::table('notifications')->where('id', $id_notification)->update(['read_at' => now()]);
-
+        $notification = auth()->user()->notifications()->where('data->invoice_id', $id)->first();
+        if ($notification) {
+            $notification->markAsRead();
+        }
 
         $invoices = Invoice::findOrFail($id);
         $invoice_details = Invoice_Details::where('invoice_id', $id)->get();
